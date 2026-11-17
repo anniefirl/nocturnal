@@ -62,7 +62,7 @@ public abstract class NocturneWidget extends AbstractWidget {
 
 	@Override
 	public void setSize(int width, int height) {
-		super.setSize(width);
+		super.setWidth(width);
 		super.setHeight(height);
 		syncRect();
 	}

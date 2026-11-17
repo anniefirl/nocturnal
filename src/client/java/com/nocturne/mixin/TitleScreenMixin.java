@@ -5,12 +5,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,6 +26,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(net.minecraft.client.gui.screens.TitleScreen.class)
 public class TitleScreenMixin {
+	@Shadow
+	protected abstract <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T widget);
+
 	private boolean nocturne$styled;
 
 	@Inject(method = "init", at = @At("TAIL"), require = 0)
@@ -42,23 +49,23 @@ public class TitleScreenMixin {
 		try {
 			int cx = self.width / 2;
 			int y0 = self.height / 2 - 30;
-			self.addRenderableWidget(Button.builder(Component.literal("Singleplayer"), button -> {
+			addRenderableWidget(Button.builder(Component.literal("Singleplayer"), button -> {
 				Minecraft mc = Minecraft.getInstance();
 				mc.setScreenAndShow(new SelectWorldScreen(self));
 			}).bounds(cx - 150, y0, 145, 24).build());
-			self.addRenderableWidget(Button.builder(Component.literal("Multiplayer"), button -> {
+			addRenderableWidget(Button.builder(Component.literal("Multiplayer"), button -> {
 				Minecraft mc = Minecraft.getInstance();
 				mc.setScreenAndShow(new JoinMultiplayerScreen(self));
 			}).bounds(cx + 5, y0, 145, 24).build());
-			self.addRenderableWidget(Button.builder(Component.literal("Options"), button -> {
+			addRenderableWidget(Button.builder(Component.literal("Options"), button -> {
 				Minecraft mc = Minecraft.getInstance();
 				mc.setScreenAndShow(new OptionsScreen(self, mc.options));
 			}).bounds(cx - 150, y0 + 30, 145, 24).build());
-			self.addRenderableWidget(Button.builder(Component.literal("Nocturne"), button -> {
+			addRenderableWidget(Button.builder(Component.literal("Nocturne"), button -> {
 				Minecraft mc = Minecraft.getInstance();
 				mc.setScreenAndShow(new NocturneScreen());
 			}).bounds(cx + 5, y0 + 30, 145, 24).build());
-			self.addRenderableWidget(Button.builder(Component.literal("Quit Game"), button -> {
+			addRenderableWidget(Button.builder(Component.literal("Quit Game"), button -> {
 				Minecraft.getInstance().stop();
 			}).bounds(cx - 100, y0 + 64, 200, 22).build());
 		} catch (Exception ignored) {

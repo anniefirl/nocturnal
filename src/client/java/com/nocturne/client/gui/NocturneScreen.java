@@ -126,7 +126,7 @@ public class NocturneScreen extends Screen {
 		// Keybind capture takes priority; ESC cancels the capture.
 		if (capturing != null) {
 			int code = keyCodeOf(event);
-			if (code == InputConstants.KEY_ESCAPE) {
+			if (code == InputConstants.KEY_ESCAPE || code == -1) {
 				capturing = null;
 				layoutNow();
 				return true;
@@ -153,13 +153,13 @@ public class NocturneScreen extends Screen {
 		try {
 			return event.key();
 		} catch (Exception ignored) {
-			return InputConstants.KEY_UNKNOWN;
+			return -1;
 		}
 	}
 
 	private void applyCapture(int code) {
 		try {
-			InputConstants.Key key = new InputConstants.Key(InputConstants.Type.KEYBOARD, code);
+			InputConstants.Key key = new InputConstants.Key("key.nocturne.captured", InputConstants.Type.KEYBOARD, code);
 			if ("menu".equals(capturing)) {
 				NocturneClient.menuKeyMapping().setKey(key);
 			} else {

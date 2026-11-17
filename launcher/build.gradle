@@ -16,8 +16,11 @@ application {
 	mainClass = 'com.nocturne.launcher.LauncherApp'
 }
 
-archivesBaseName = 'nocturne-launcher'
 version = '1.0.0'
+
+base {
+	archivesName = 'nocturne-launcher'
+}
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
