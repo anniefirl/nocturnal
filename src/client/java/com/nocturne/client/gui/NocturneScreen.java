@@ -132,7 +132,7 @@ public class NocturneScreen extends Screen {
 				return true;
 			}
 			if (!isAnyBoxFocused()) {
-				applyCapture(code, scanCodeOf(event));
+				applyCapture(event);
 				capturing = null;
 				layoutNow();
 				return true;
@@ -157,17 +157,9 @@ public class NocturneScreen extends Screen {
 		}
 	}
 
-	private static int scanCodeOf(KeyEvent event) {
+	private void applyCapture(KeyEvent event) {
 		try {
-			return event.scancode();
-		} catch (Exception ignored) {
-			return 0;
-		}
-	}
-
-	private void applyCapture(int code, int scancode) {
-		try {
-			InputConstants.Key key = InputConstants.getKey(code, scancode);
+			InputConstants.Key key = InputConstants.getKey(event);
 			if ("menu".equals(capturing)) {
 				NocturneClient.menuKeyMapping().setKey(key);
 			} else {
