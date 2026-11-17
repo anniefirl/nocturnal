@@ -5,16 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,11 +19,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Replaces the vanilla main menu with the Nocturne dashboard: dark backdrop,
  * brand header, and working buttons for singleplayer, multiplayer, options
  * and the client dashboard.
+ *
+ * Extends Screen so the protected widget helpers are directly callable;
+ * the constructor is never invoked at runtime (mixins are applied, not
+ * instantiated).
  */
 @Mixin(net.minecraft.client.gui.screens.TitleScreen.class)
-public class TitleScreenMixin {
-	@Shadow
-	protected abstract <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T widget);
+public abstract class TitleScreenMixin extends Screen {
+	protected TitleScreenMixin(Component title) {
+		super(title);
+	}
 
 	private boolean nocturne$styled;
 
