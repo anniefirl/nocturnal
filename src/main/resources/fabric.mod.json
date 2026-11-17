@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "nocturne",
+  "version": "${version}",
+  "name": "Nocturne Client",
+  "description": "A lightweight, configurable utility client for Minecraft.",
+  "authors": ["Nocturne Team"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.nocturne.client.NocturneClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
