@@ -1,21 +1,29 @@
-
 {
-  "schemaVersion": 1,
-  "id": "nocturne",
-  "version": "${version}",
-  "name": "Nocturne Client",
-  "description": "A lightweight, configurable utility client for Minecraft.",
-  "authors": ["Nocturne Team"],
-  "license": "MIT",
-  "environment": "client",
-  "entrypoints": {
-    "client": [
-      "dev.nocturne.client.NocturneClient"
-    ]
-  },
-  "depends": {
-    "fabricloader": ">=0.20.1",
-    "minecraft": "26.3",
-    "java": ">=25"
-  }
+	"schemaVersion": 1,
+	"id": "celestial",
+	"version": "${version}",
+	"name": "Celestial Client",
+	"description": "A premium pink-accented glassmorphism utility client for Minecraft 26.3.",
+	"authors": [
+		"Vawue"
+	],
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"com.celestial.CelestialMod"
+		],
+		"client": [
+			"com.celestial.client.CelestialClient"
+		]
+	},
+	"mixins": [
+		"celestial.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"fabric-api": "*",
+		"minecraft": "~26.3",
+		"java": ">=25"
+	}
 }
