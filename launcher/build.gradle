@@ -1,0 +1,29 @@
+plugins {
+	id 'application'
+	id 'maven-publish'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'com.formdev:flatlaf:3.5.1'
+	implementation 'com.google.code.gson:gson:2.11.0'
+}
+
+application {
+	mainClass = 'com.nocturne.launcher.LauncherApp'
+}
+
+archivesBaseName = 'nocturne-launcher'
+version = '1.0.0'
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}

@@ -1,27 +1,25 @@
 {
 	"schemaVersion": 1,
-	"id": "celestial",
+	"id": "nocturne",
 	"version": "${version}",
-	"name": "Celestial Client",
-	"description": "A premium pink-accented glassmorphism utility client for Minecraft 26.3.",
+	"name": "Nocturne",
+	"description": "Nocturne is a lightweight black-and-gray utility client: HUD counters, Fullbright, Zoom, dashboard GUI, themes and profiles.",
 	"authors": [
-		"Vawue"
+		"Nocturne"
 	],
 	"license": "MIT",
+	"icon": "assets/nocturne/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"com.celestial.CelestialMod"
-		],
 		"client": [
-			"com.celestial.client.CelestialClient"
+			"com.nocturne.client.NocturneClient"
 		]
 	},
 	"mixins": [
-		"celestial.mixins.json"
+		"nocturne.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.5",
+		"fabricloader": ">=0.16.0",
 		"fabric-api": "*",
 		"minecraft": "~26.3",
 		"java": ">=25"
